@@ -6,12 +6,13 @@
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/16 14:06:44 by sbelondr          #+#    #+#              #
-#    Updated: 2023/01/17 09:32:12 by sbelondr         ###   ########.fr        #
+#    Updated: 2023/01/17 09:41:30 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from string import ascii_lowercase
 import sys
+import pyperclip
 
 def print_header():
     '''
@@ -69,6 +70,8 @@ def generate_buffer():
     print("------------------------------- Buffer -------------------------------")
     print(buffer)
     print("----------------------------------------------------------------------")
+    pyperclip.copy(buffer)
+    print("\t✅ Buffer is copied in your clipboard")
     return buffer
 
 def input_get_eip():
