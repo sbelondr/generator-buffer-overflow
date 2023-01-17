@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    test.py                                            :+:      :+:    :+:    #
+#    main.py                                            :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/16 14:06:44 by sbelondr          #+#    #+#              #
-#    Updated: 2023/01/16 14:20:36 by sbelondr         ###   ########.fr        #
+#    Updated: 2023/01/17 09:32:12 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,12 @@ def print_header():
     print("\033[92m")
     print("====================== Buffer Overflow Generator ======================")
 
+def print_error_and_quit(msg):
+    print("\033[91m")
+    print(msg, file=sys.stderr)
+    print("\033[0m")
+    exit(-1)
+
 def generate_buffer():
     '''
     Generate new buffer
@@ -29,7 +35,15 @@ def generate_buffer():
     print("\033[93m")
     test= input("\tLength: ")
 
-    len_input = int(test) + 1
+    # str to int
+    try:
+        len_input = int(test) + 1
+    except:
+        print_error_and_quit("Value is not a number.")
+
+    if len_input > 20280:
+        print_error_and_quit("Error: The length is too long (> 20 280).")
+
     sz = 0
     buffer = ""
     for i in ascii_lowercase:
@@ -73,10 +87,7 @@ def input_get_eip():
         byte_array = bytearray.fromhex(eip_value_hex)
         value_eip = byte_array.decode()[::-1]
     except:
-        print("\033[91m")
-        print("Non-hexadecimal number", file=sys.stderr)
-        print("\033[0m")
-        exit(-1)
+        print_error_and_quit("Non-hexadecimal number")
 
     print("\033[94m")
     print("\tValue decode is '%s'" % (value_eip))
@@ -92,10 +103,7 @@ def calc_offset(buffer, value_eip):
     try:
         offset = buffer.index(value_eip)
     except:
-        print("\033[91m")
-        print("Error: value not found", file=sys.stderr)
-        print("\033[0m")
-        exit(-1)
+        print_error_and_quit("Error: value not found")
 
     print("\tOffset is '%d'" % (offset))
     print("\033[0m")
