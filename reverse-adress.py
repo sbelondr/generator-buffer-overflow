@@ -6,7 +6,7 @@
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 12:06:58 by sbelondr          #+#    #+#              #
-#    Updated: 2023/01/17 12:44:05 by sbelondr         ###   ########.fr        #
+#    Updated: 2023/01/18 08:58:09 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,13 +45,11 @@ def get_value():
 
 def main():
     addr = get_value()
+    transform(addr)
 
     #int_addr = int(addr, 16)
     #total = hex(int_addr + 4)
     #addr_hex = str(total)[2:]
-
-    transform(addr)
-
     #print("\nAddress + 4 (0x%s):" % (addr_hex))
     #transform(addr_hex)
 
